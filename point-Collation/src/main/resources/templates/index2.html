@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<title>Index page</title>
+	<style>
+	h1 { font-size:18pt; font-weight:bold; color:gray; }
+	body { font-size:13pt; color:gray; margin:5px 25px; }
+	tr { margin:5px}
+	th { padding:5px; color:white; background:darkgray; }	
+	td { padding:5px; color:black; background:#e0e0ff; }	
+	</style>
+</head>
+<body>
+	<h1 th:text="#{content.title}">Hello page</h1>
+	<p th:text="|${myNum} is (*{check} ? *{trueVal} : *{falseVal})|"></p>	
+	<br/>			
+	<p th:text="'condition result ' + ${myNum} + ' is ' + (${check} ? ${trueVal} : ${falseVal})"></p>
+	<br/>	
+	<p th:if="${check}" th:text="'if result ' + ${myNum} + ' is ' + ${trueVal}">message</p>
+	<br/>				
+	<p th:unless="${check}" th:text="'unless result ' + ${myNum} + ' is ' + ${falseVal}">message</p>
+	<br/>	
+	<div th:switch="${checkMonth}">
+		<p th:case="0" th:text="|${checkMonth} - Winter|"></p>
+		<p th:case="1" th:text="|${checkMonth} - Spring|"></p>
+		<p th:case="2" th:text="|${checkMonth} - Summer|"></p>
+		<p th:case="3" th:text="|${checkMonth} - Autumn|"></p>
+		<p th:case="4" th:text="|${checkMonth} - Winter|"></p>								
+		<p th:case="*">....?</p>		
+	</div>
+	<br/>
+	<p th:text="|expression[ ${check} ]|"></p>
+	<table th:object="${data.get(__${check}__)}">
+		<tr><th>ID<td th:text="*{id}"></th></tr>
+		<tr><th>NAME<td th:text="*{name}"></th></tr>
+		<tr><th>VALUE<td th:text="*{value}"></th></tr>
+	</table>				
+</body>
+</html>

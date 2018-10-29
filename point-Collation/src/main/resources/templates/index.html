@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http"://www.thymeleaf.org>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<title>Index page</title>
+	<style>
+	h1 { font-size:18pt; font-weight:bold; color:gray; }
+	body { font-size:13pt; color:gray; margin:5px 25px; }
+	pre { border: solid 3px #ddd; padding: 10px; }
+	tr { margin:5px}
+	th { padding:5px; color:white; background:darkgray; }	
+	td { padding:5px; color:black; background:#e0e0ff; }
+	table.navi { width:100%; background:white; }
+	table.navi tr { background:white; }
+	table.navi tr td { background:white; }		
+	.err { color : red;}		
+	</style>
+</head>
+<body>
+	<h1 th:text="${title}">Hello page</h1>
+	<p th:text="${msg}"></p>
+	<table>
+		<form method="post" action="/" th:object="${formModel}">
+			<ul>
+				<!-- #fields 는 엔터티의 각 필드를 검증한 결과가 저장된 객체이다. detailedErrors 메서다는 오류에 관한 정보를 모아서 리스트로 반환한다.
+					 th:value="*{name}" th:errorclass="err" errorclass 는 해당 프로퍼티에 오류가 발생했을 때 호출하는  class 명
+				-->
+				<li th:each="error : ${#fields.detailedErrors()}"
+					class="err" th:text="${error.message}" />			
+			</ul>				
+			<tr><td><label for="companyId">제휴사 ID</label></td>
+				<td>
+					<input type="text" name="companyId" th:value="*{companyId}" th:errorclass="err"/>
+					<div th:if="${#fields.hasErrors('companyId')}" th:errors="*{companyId}" th:errorclass="err"></div>				
+				</td>
+			</tr>							
+			<tr><td><label for="companyNm">제휴사명</label></td>
+				<td><input type="text" name="companyNm" th:value="*{companyNm}" /></td>
+			</tr>
+			<tr><td><label for="memberId">멥버십 ID</label></td>
+				<td>
+					<input type="text" name="memberId" th:value="*{memberId}" th:errorclass="err"/>
+					<div th:if="${#fields.hasErrors('memberId')}" th:errors="*{memberId}" th:errorclass="err"></div>				
+				</td>
+			</tr>
+			<tr><td><label for="approvalNum">슫인번호</label></td>
+				<td>
+					<input type="text" name="approvalNum" th:value="*{approvalNum}" th:errorclass="err"/>
+					<div th:if="${#fields.hasErrors('approvalNum')}" th:errors="*{approvalNum}" th:errorclass="err"></div>				
+				</td>
+			</tr>				
+			<tr><td><label for="approvalDate">승인일자</label></td>
+				<td><input type="text" name="approvalDate" th:value="*{approvalDate}" /></td>
+			</tr>				
+			<tr><td><label for="useAmt">사용금액</label></td>
+				<td>
+					<input type="text" name="useAmt" th:value="*{useAmt}" th:errorclass="err"/>
+					<div th:if="${#fields.hasErrors('useAmt')}" th:errors="*{useAmt}" th:errorclass="err"></div>				
+				</td>
+			</tr>				
+			<tr><td><label for="useDate">사용일자</label></td>
+				<td><input type="text" name="useDate" th:value="*{useDate}" /></td>
+			</tr>				
+			<tr>
+				<td></td><td><input type="submit"/></td>
+			</tr>																	
+		</form>
+	</table>
+	<hr/>
+	<table>
+		<tr>
+			<th>ID</th>
+			<th>제휴사 ID</th>
+			<th>제휴사명</th>
+			<th>멥버십 ID</th>
+			<th>슫인번호</th>			
+			<th>승인일자</th>
+			<th>사용금액</th>
+			<th>사용일자</th>
+			<th>Transaction ID</th>
+			<th>Block Hash Number</th>			
+		</tr>
+		<tr th:each="obj : ${datalist}">
+			<td th:text="${obj.id}"></td>	
+			<td th:text="${obj.companyId}"></td>				
+			<td th:text="${obj.companyNm}"></td>
+			<td th:text="${obj.memberId}"></td>
+			<td th:text="${obj.approvalNum}"></td>	
+			<td th:text="${obj.approvalDate}"></td>				
+			<td th:text="${obj.useAmt}"></td>
+			<td th:text="${obj.useDate}"></td>			
+			<td th:text="${obj.transactionId}"></td>				
+			<td th:text="${obj.hashNum}"></td>
+		</tr>
+	</table>	
+</body>
+</html>

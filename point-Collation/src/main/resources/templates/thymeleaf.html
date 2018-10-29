@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<title>thymeleaf page</title>
+	<style>
+	h1 { font-size:18pt; font-weight:bold; color:gray; }
+	body { font-size:13pt; color:gray; margin:5px 25px; }
+	tr { margin:5px}
+	th { padding:5px; color:white; background:darkgray; }	
+	td { padding:5px; color:black; background:#e0e0ff; }	
+	</style>
+	<style th:include="part :: frag_body"></style>
+</head>
+<body>
+	<h1>Hello!</h1>
+	<p th:text="${new java.util.Date().toString()}"></p>	
+	<p th:text="${#dates.format(new java.util.Date(), 'dd/MMM/yyy HH:mm')}"></p>
+	<p th:text="${#numbers.formatInteger(1234,7)}"></p>
+	<p th:text="${#strings.toUpperCase('welcome to spring')}"></p>
+	<!-- 
+	<p th:text="'from parameter ... id=' + ${param.id[0]} + ', name=' + ${param.name[0]}"></p>
+	-->
+	<h1 th:text="#{content.title}">Hello page</h1>
+	<p th:text="#{content.message}"></p>
+	<br/>			
+	<p><a th:href="@{'/other'}">link</a></p>
+	<br/>	
+	<table th:object=${object}>
+		<tr><th>ID<td th:text="*{id}"></td></th></tr>
+		<tr><th>NAME<td th:text="*{name}"></td></th></tr>
+		<tr><th>EMAIL<td th:text="*{value}"></td></th></tr>				
+	</table>
+	<br/>
+	<p th:text="${msg}"></p>
+	<p th:text="${htmlcode}"></p>
+	<p th:utext="${htmlcodeUtext}"></p>
+	<br/>			
+	<div th:object=${object}>
+		<p th:text="|my name is *{name}. mail address is *{value}.|">message.</p>
+	</div>
+	<br/>
+	<div th:include="part :: frag_body">
+		<p>this is original content.</p>
+	</div>+9
+</body>
+</html>
